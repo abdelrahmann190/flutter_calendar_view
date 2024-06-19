@@ -28,6 +28,7 @@ class DayView<T extends Object?> extends StatefulWidget {
   /// A function that returns a [Widget] that determines appearance of each
   /// cell in day calendar.
   final EventTileBuilder<T>? eventTileBuilder;
+  final PageController? pageController;
 
   /// A function to generate the DateString in the calendar title.
   /// Useful for I18n
@@ -232,6 +233,7 @@ class DayView<T extends Object?> extends StatefulWidget {
   /// Main widget for day view.
   const DayView({
     Key? key,
+    this.pageController,
     this.eventTileBuilder,
     this.dateStringBuilder,
     this.timeStringBuilder,
@@ -368,7 +370,8 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
     _scrollController = ScrollController(
       initialScrollOffset: _lastScrollOffset,
     );
-    _pageController = PageController(initialPage: _currentIndex);
+    _pageController =
+        widget.pageController ?? PageController(initialPage: _currentIndex);
     _eventArranger = widget.eventArranger ?? SideEventArranger<T>();
     _assignBuilders();
   }
